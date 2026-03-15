@@ -2,25 +2,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>MexiSonora Growth MAX</title>
+<title>MexiSonora Growth Engine</title>
 
 <style>
 
 body{
-font-family:Arial;
 background:#0f172a;
+font-family:Arial;
 color:white;
 text-align:center;
 padding:20px;
 }
 
+h1{
+color:#38bdf8;
+}
+
 button{
-padding:12px 20px;
-margin:10px;
-border:none;
-border-radius:8px;
 background:#22c55e;
-color:white;
+border:none;
+padding:14px;
+margin:8px;
+border-radius:10px;
 font-size:16px;
 cursor:pointer;
 }
@@ -38,18 +41,17 @@ font-size:16px;
 }
 
 img{
-width:150px;
-border-radius:10px;
+width:120px;
 margin:6px;
+border-radius:10px;
 cursor:pointer;
 }
 
-.video{
+.panel{
 background:#1e293b;
-padding:10px;
+padding:15px;
 border-radius:10px;
-margin:10px;
-cursor:pointer;
+margin:15px;
 }
 
 </style>
@@ -57,48 +59,59 @@ cursor:pointer;
 
 <body>
 
-<h1>MexiSonora Growth MAX</h1>
+<h1>MexiSonora Growth Engine</h1>
+
+<div class="panel">
 
 <h2>Generador de Tweet Viral</h2>
 
 <textarea id="tweet"></textarea><br>
 
-<button onclick="generarTweet()">Generar Tweet</button>
+<button onclick="tweetViral()">Generar Tweet</button>
+<button onclick="tweetMotivacional()">Tweet Motivacional</button>
+<button onclick="tweetPaisaje()">Tweet Paisaje</button>
+
+<br>
+
 <button onclick="publicar()">Publicar en X</button>
 
-<h2>Agregar imagen del norte de México</h2>
-
-<img src="https://images.unsplash.com/photo-1608142136283-4f0b7c8a1c0e" onclick="agregarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" onclick="agregarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="agregarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429" onclick="agregarImagen(this.src)">
-
-<h2>Videos del norte de México</h2>
-
-<div class="video" onclick="agregarVideo('https://youtu.be/g7o8F9d4Gk4')">
-Desierto de Sonora
 </div>
 
-<div class="video" onclick="agregarVideo('https://youtu.be/0u6yFQkY5L8')">
-Sierra Madre Occidental
+<div class="panel">
+
+<h2>Fotos del Norte de México</h2>
+
+<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429" onclick="addMedia(this.src)">
+<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="addMedia(this.src)">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e" onclick="addMedia(this.src)">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" onclick="addMedia(this.src)">
+
 </div>
 
-<div class="video" onclick="agregarVideo('https://youtu.be/W3s4YF1r8eM')">
-Caballos del norte
+<div class="panel">
+
+<h2>Videos virales del norte</h2>
+
+<button onclick="addMedia('https://youtu.be/g7o8F9d4Gk4')">Desierto de Sonora</button>
+
+<button onclick="addMedia('https://youtu.be/0u6yFQkY5L8')">Caballos del Norte</button>
+
+<button onclick="addMedia('https://youtu.be/W3s4YF1r8eM')">Sierra Madre</button>
+
 </div>
 
 <script>
 
 let media=""
 
-function generarTweet(){
+function tweetViral(){
 
-const frases=[
+let frases=[
 "El norte de México no se explica… se vive.",
-"Donde el desierto enseña carácter.",
+"Donde el desierto forja carácter.",
+"Orgullo del norte mexicano.",
 "El espíritu del norte es libertad.",
-"Así se ve la grandeza del norte mexicano.",
-"Orgullo del desierto y de la sierra."
+"Así se ve la grandeza del norte."
 ]
 
 let f=frases[Math.floor(Math.random()*frases.length)]
@@ -107,15 +120,37 @@ document.getElementById("tweet").value=f+" #Sonora #NorteDeMexico @MexiSonora"
 
 }
 
-function agregarImagen(src){
+function tweetMotivacional(){
 
-media=src
+let frases=[
+"Que hoy el esfuerzo supere al miedo.",
+"Los grandes logros nacen en silencio.",
+"El norte nos enseñó a resistir.",
+"Disciplina hoy, orgullo mañana."
+]
 
-document.getElementById("tweet").value += " "+src
+let f=frases[Math.floor(Math.random()*frases.length)]
+
+document.getElementById("tweet").value=f+" #Viernes #Motivacion"
 
 }
 
-function agregarVideo(url){
+function tweetPaisaje(){
+
+let frases=[
+"Atardecer en el desierto de Sonora.",
+"La calma del norte mexicano.",
+"Donde la sierra abraza el cielo.",
+"Paisajes que solo existen en el norte."
+]
+
+let f=frases[Math.floor(Math.random()*frases.length)]
+
+document.getElementById("tweet").value=f+" #Sonora #Paisajes"
+
+}
+
+function addMedia(url){
 
 media=url
 
