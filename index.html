@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MexiSonora Growth MAX</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:white;text-align:center;margin:0}
+header{background:#020617;padding:18px;font-size:22px;font-weight:bold}
+.container{max-width:820px;margin:auto;padding:20px}
+.card{background:#1e293b;padding:20px;margin:15px;border-radius:12px}
+button{padding:14px 18px;border:none;border-radius:10px;background:#1d9bf0;color:white;font-size:16px;cursor:pointer;margin:6px}
+button.green{background:#22c55e}
+button.orange{background:#f59e0b}
+button.red{background:#ef4444}
+textarea{width:95%;height:120px;border-radius:8px;border:none;padding:10px}
+small{color:#94a3b8}
+.follow{font-size:18px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header>
+🚀 MexiSonora Growth MAX
+</header>
+
+<div class="container">
+
+<div class="card">
+<h3>Generador de Tweet Viral</h3>
+<textarea id="tweet"></textarea>
+<br><br>
+<button onclick="generarTweet()" class="green">Generar Tweet Viral</button>
+<button onclick="publicarTweet()">Publicar en X</button>
+</div>
+
+<div class="card">
+<h3>Contenido con Foto o Video</h3>
+<button onclick="tweetPaisaje()">Paisaje Sonorense</button>
+<button onclick="tweetCaballo()">Caballos del norte</button>
+<button onclick="tweetDato()">Dato curioso</button>
+<button onclick="tweetPregunta()">Pregunta viral</button>
+</div>
+
+<div class="card">
+<h3>Campaña automática diaria</h3>
+<button class="orange" onclick="campanaDiaria()">Publicar campaña (6 tweets)</button>
+<br>
+<small>Inspiración / paisaje / dato / pregunta / video / cierre</small>
+</div>
+
+<div class="card">
+<h3>Ideas virales instantáneas</h3>
+<button onclick="idea1()">Idea viral 1</button>
+<button onclick="idea2()">Idea viral 2</button>
+<button onclick="idea3()">Idea viral 3</button>
+</div>
+
+<div class="card">
+<h3>Seguir cuenta</h3>
+<div class="follow">
+<a href="https://twitter.com/MexiSonora" target="_blank">👉 Seguir @MexiSonora</a>
+</div>
+</div>
+
+</div>
+
+<script>
+
+const paisajes=[
+"https://youtu.be/Scxs7L0vhZ4",
+"https://youtu.be/aqz-KE-bpKQ",
+"https://youtu.be/6kEX2o1n9l0"
+]
+
+const tweets=[
+"Buenos días. El cielo del norte parece infinito. Si amas estos paisajes sigue @MexiSonora",
+"El desierto de Sonora tiene algunos de los atardeceres más hermosos del planeta. Sígueme en @MexiSonora",
+"Hay algo especial en la gente del norte: carácter, lealtad y libertad. Si lo entiendes sigue @MexiSonora",
+"Si alguna vez viste un amanecer en Sonora sabes que el día empieza diferente. @MexiSonora",
+"El silencio del desierto de Sonora es algo que todos deberían experimentar al menos una vez. @MexiSonora",
+"Si amas el norte de México este perfil es para ti. Sígueme @MexiSonora"
+]
+
+function random(arr){
+return arr[Math.floor(Math.random()*arr.length)]
+}
+
+function generarTweet(){
+let t=random(tweets)
+document.getElementById("tweet").value=t
+}
+
+function publicarTweet(){
+let texto=document.getElementById("tweet").value
+let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(texto)
+window.open(url,"_blank")
+}
+
+function tweetPaisaje(){
+let texto="Mira este paisaje del norte de México 👇\n"+random(paisajes)+"\n\nSi amas el desierto y el cielo infinito sigue @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function tweetCaballo(){
+let texto="Pocas cosas simbolizan más libertad que un caballo corriendo en el desierto del norte.\n\nSi amas estas imágenes sigue @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function tweetDato(){
+let texto="Dato curioso: el desierto de Sonora es uno de los ecosistemas con mayor biodiversidad del mundo.\n\nMás historias en @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function tweetPregunta(){
+let texto="Pregunta para la comunidad: ¿cuál es el lugar más bonito que has visto en el norte de México?\n\nTe leo.\n\n@MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function idea1(){
+let texto="Solo la gente del norte entiende esto: el cielo aquí parece más grande. ¿Sí o no? @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function idea2(){
+let texto="Si amas los paisajes del desierto y la cultura del norte, este perfil es para ti. Sigue @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function idea3(){
+let texto="El norte de México tiene algo especial: libertad. Si lo has sentido sabes de qué hablo. @MexiSonora"
+document.getElementById("tweet").value=texto
+}
+
+function campanaDiaria(){
+for(let i=0;i<tweets.length;i++){
+setTimeout(()=>{
+let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(tweets[i])
+window.open(url,"_blank")
+},i*4000)
+}
+}
+
+</script>
+
+</body>
+</html>
