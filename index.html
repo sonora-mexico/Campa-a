@@ -7,12 +7,15 @@
 <style>
 body{font-family:Arial;background:#0f172a;color:white;text-align:center;margin:0}
 header{background:#020617;padding:18px;font-size:22px;font-weight:bold}
-.container{max-width:820px;margin:auto;padding:20px}
+.container{max-width:900px;margin:auto;padding:20px}
 .card{background:#1e293b;padding:20px;margin:15px;border-radius:12px}
 button{padding:14px 18px;border:none;border-radius:10px;background:#1d9bf0;color:white;font-size:16px;cursor:pointer;margin:6px}
 button.green{background:#22c55e}
 button.orange{background:#f59e0b}
-textarea{width:95%;height:150px;border-radius:8px;border:none;padding:10px}
+textarea{width:96%;height:150px;border-radius:8px;border:none;padding:10px}
+img{max-width:100%;border-radius:10px;margin-top:10px}
+iframe{width:100%;height:300px;border:none;border-radius:10px;margin-top:10px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .follow{font-size:18px;margin-top:10px}
 </style>
 </head>
@@ -25,25 +28,41 @@ textarea{width:95%;height:150px;border-radius:8px;border:none;padding:10px}
 <div class="container">
 
 <div class="card">
-<h3>Generador de Tweet Viral (versión larga)</h3>
+<h3>Generador de Tweet Viral</h3>
 <textarea id="tweet"></textarea>
-<br><br>
-<button onclick="generarTweet()" class="green">Generar Tweet Viral</button>
+<br>
+<button class="green" onclick="generarTweet()">Generar Tweet</button>
 <button onclick="publicarTweet()">Publicar en X</button>
 </div>
 
 <div class="card">
-<h3>Contenido real del norte de México</h3>
-<button onclick="tweetPaisaje()">Paisaje del desierto</button>
-<button onclick="tweetSierra()">Sierra Madre Occidental</button>
-<button onclick="tweetCaballo()">Caballos y vaqueros</button>
-<button onclick="tweetDato()">Dato del norte</button>
-<button onclick="tweetPregunta()">Pregunta comunidad</button>
+<h3>Agregar imagen del norte de México</h3>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1605487900126-6d8d7c92a1d4" onclick="usarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429" onclick="usarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e" onclick="usarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="usarImagen(this.src)">
+</div>
+<div id="imagenSeleccionada"></div>
+</div>
+
+<div class="card">
+<h3>Videos del norte de México</h3>
+<button onclick="video1()">Desierto de Sonora</button>
+<button onclick="video2()">Sierra Madre Occidental</button>
+<button onclick="video3()">Caballos del norte</button>
+<div id="video"></div>
+</div>
+
+<div class="card">
+<h3>Generar hilo viral (thread)</h3>
+<button class="orange" onclick="generarHilo()">Crear hilo de 5 tweets</button>
+<textarea id="thread"></textarea>
 </div>
 
 <div class="card">
 <h3>Campaña automática diaria</h3>
-<button class="orange" onclick="campanaDiaria()">Publicar campaña (6 tweets)</button>
+<button onclick="campanaDiaria()">Generar 6 tweets del día</button>
 </div>
 
 <div class="card">
@@ -57,26 +76,11 @@ textarea{width:95%;height:150px;border-radius:8px;border:none;padding:10px}
 
 <script>
 
-const videos=[
-"https://www.youtube.com/watch?v=vJ8nF9qGm5Y",
-"https://www.youtube.com/watch?v=5sJZ0oK9C7U",
-"https://www.youtube.com/watch?v=2q6KQy2Zz9E"
-]
-
-const imagenes=[
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-"https://images.unsplash.com/photo-1501785888041-af3ef285b470",
-"https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
-]
-
 const tweets=[
-"Hay algo especial en el norte de México que no se puede explicar fácilmente.\n\nLos amaneceres sobre el desierto de Sonora, el silencio profundo de las montañas y ese cielo enorme que parece no terminar nunca.\n\nQuienes han caminado por estos paisajes saben que aquí la naturaleza se siente distinta.\n\nSi amas el norte de México y sus historias, sígueme en @MexiSonora",
-
-"Dicen que el desierto es vacío, pero quienes conocen el norte saben que está lleno de vida.\n\nEn Sonora y Chihuahua habitan cientos de especies, paisajes que cambian con cada estación y atardeceres que parecen pintados a mano.\n\nSi te gustan los paisajes reales del norte de México, sigue @MexiSonora",
-
-"El norte de México tiene algo que lo hace único: libertad.\n\nLas montañas de la Sierra Madre, los caminos largos del desierto y los ranchos donde la tradición sigue viva recuerdan todos los días que esta tierra tiene carácter.\n\nSi sientes orgullo por el norte, sigue @MexiSonora",
-
-"Pocas cosas impresionan tanto como un atardecer en el desierto de Sonora.\n\nCuando el sol baja detrás de los cerros el cielo se vuelve naranja, rojo y dorado al mismo tiempo.\n\nSi alguna vez viste algo así sabes que es imposible olvidarlo.\n\nSígueme en @MexiSonora para más historias del norte"
+"Hay algo especial en el norte de México que no se puede explicar fácilmente. Los amaneceres sobre el desierto de Sonora, el silencio profundo de las montañas y ese cielo enorme que parece no terminar nunca. Si amas estos paisajes sigue @MexiSonora",
+"Dicen que el desierto está vacío, pero el desierto de Sonora está lleno de vida, colores y atardeceres que parecen pintados a mano. Si te gustan estos lugares sigue @MexiSonora",
+"El norte de México tiene algo único: carácter. Entre la Sierra Madre Occidental, los ranchos y los caminos del desierto se siente una libertad difícil de encontrar en otros lugares. Sigue @MexiSonora",
+"Pocas cosas impresionan tanto como un atardecer en el desierto de Sonora cuando el cielo se vuelve rojo, naranja y dorado al mismo tiempo. Más historias del norte en @MexiSonora"
 ]
 
 function random(arr){
@@ -94,43 +98,51 @@ let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(texto)
 window.open(url,"_blank")
 }
 
-function tweetPaisaje(){
-let texto="El desierto del norte de México guarda algunos de los paisajes más impresionantes del continente.\n\nCactus gigantes, montañas antiguas y un cielo inmenso que cambia de color cada tarde.\n\nMira este paisaje del desierto de Sonora 👇\n"+random(videos)+"\n\nSi te gustan estos lugares sigue @MexiSonora"
-
-document.getElementById("tweet").value=texto
+function usarImagen(src){
+let box=document.getElementById("imagenSeleccionada")
+box.innerHTML="<p>Imagen seleccionada (descárgala y súbela al tweet):</p><img src='"+src+"'>"
 }
 
-function tweetSierra(){
-let texto="La Sierra Madre Occidental atraviesa gran parte del norte de México y es uno de los paisajes montañosos más espectaculares del país.\n\nBosques, cañones y pueblos que conservan tradiciones centenarias.\n\n"+random(imagenes)+"\n\nSi te gusta descubrir estos lugares sigue @MexiSonora"
-
-document.getElementById("tweet").value=texto
+function video1(){
+mostrarVideo("https://www.youtube.com/embed/Scxs7L0vhZ4")
 }
 
-function tweetCaballo(){
-let texto="Los caballos siempre han sido parte de la historia del norte de México.\n\nEn los ranchos de Sonora y Chihuahua todavía se ven vaqueros recorriendo grandes extensiones de desierto y montaña.\n\n"+random(videos)+"\n\nSi te gustan estas tradiciones del norte sigue @MexiSonora"
-
-document.getElementById("tweet").value=texto
+function video2(){
+mostrarVideo("https://www.youtube.com/embed/aqz-KE-bpKQ")
 }
 
-function tweetDato(){
-let texto="Dato interesante del norte de México:\n\nEl desierto de Sonora es considerado uno de los ecosistemas con mayor biodiversidad entre los desiertos del planeta.\n\nA pesar del clima extremo alberga cientos de especies de plantas y animales.\n\nMás historias del norte en @MexiSonora"
-
-document.getElementById("tweet").value=texto
+function video3(){
+mostrarVideo("https://www.youtube.com/embed/6kEX2o1n9l0")
 }
 
-function tweetPregunta(){
-let texto="Pregunta para la comunidad del norte de México:\n\n¿Cuál es el lugar más impresionante que has visitado en Sonora, Chihuahua, Baja California o Coahuila?\n\nLos leo.\n\nSi te gustan las historias y paisajes del norte sigue @MexiSonora"
+function mostrarVideo(url){
+document.getElementById("video").innerHTML="<iframe src='"+url+"'></iframe>"
+}
 
-document.getElementById("tweet").value=texto
+function generarHilo(){
+let hilo="1/ El norte de México guarda algunos de los paisajes más impresionantes del continente.\n\n"
+
+hilo+="2/ El desierto de Sonora tiene una biodiversidad sorprendente con cientos de especies adaptadas a un clima extremo.\n\n"
+
+hilo+="3/ La Sierra Madre Occidental atraviesa gran parte del norte del país y crea paisajes espectaculares de montañas y cañones.\n\n"
+
+hilo+="4/ Los ranchos y la cultura vaquera siguen siendo parte fundamental de la identidad del norte.\n\n"
+
+hilo+="5/ Si amas estas historias del norte de México sigue @MexiSonora"
+
+document.getElementById("thread").value=hilo
 }
 
 function campanaDiaria(){
-for(let i=0;i<tweets.length;i++){
-setTimeout(()=>{
-let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(tweets[i])
-window.open(url,"_blank")
-},i*5000)
-}
+let plan="Tweets para hoy:\n\n"
+plan+="7:00 inspiración del norte\n"
+plan+="10:00 paisaje del desierto\n"
+plan+="13:00 dato curioso\n"
+plan+="17:00 pregunta comunidad\n"
+plan+="20:00 video del norte\n"
+plan+="22:00 mensaje emocional"
+
+alert(plan)
 }
 
 </script>
