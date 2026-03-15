@@ -2,147 +2,135 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MexiSonora Growth MAX</title>
+
 <style>
-body{font-family:Arial;background:#0f172a;color:white;text-align:center;margin:0}
-header{background:#020617;padding:18px;font-size:22px;font-weight:bold}
-.container{max-width:900px;margin:auto;padding:20px}
-.card{background:#1e293b;padding:20px;margin:15px;border-radius:12px}
-button{padding:14px 18px;border:none;border-radius:10px;background:#1d9bf0;color:white;font-size:16px;cursor:pointer;margin:6px}
-button.green{background:#22c55e}
-button.orange{background:#f59e0b}
-textarea{width:96%;height:150px;border-radius:8px;border:none;padding:10px}
-img{max-width:100%;border-radius:10px;margin-top:10px}
-iframe{width:100%;height:300px;border:none;border-radius:10px;margin-top:10px}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.follow{font-size:18px;margin-top:10px}
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+button{
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+textarea{
+width:90%;
+height:120px;
+border-radius:10px;
+padding:10px;
+font-size:16px;
+}
+
+img{
+width:150px;
+border-radius:10px;
+margin:6px;
+cursor:pointer;
+}
+
+.video{
+background:#1e293b;
+padding:10px;
+border-radius:10px;
+margin:10px;
+cursor:pointer;
+}
+
 </style>
 </head>
+
 <body>
 
-<header>
-🚀 MexiSonora Growth MAX
-</header>
+<h1>MexiSonora Growth MAX</h1>
 
-<div class="container">
+<h2>Generador de Tweet Viral</h2>
 
-<div class="card">
-<h3>Generador de Tweet Viral</h3>
-<textarea id="tweet"></textarea>
-<br>
-<button class="green" onclick="generarTweet()">Generar Tweet</button>
-<button onclick="publicarTweet()">Publicar en X</button>
+<textarea id="tweet"></textarea><br>
+
+<button onclick="generarTweet()">Generar Tweet</button>
+<button onclick="publicar()">Publicar en X</button>
+
+<h2>Agregar imagen del norte de México</h2>
+
+<img src="https://images.unsplash.com/photo-1608142136283-4f0b7c8a1c0e" onclick="agregarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" onclick="agregarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="agregarImagen(this.src)">
+<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429" onclick="agregarImagen(this.src)">
+
+<h2>Videos del norte de México</h2>
+
+<div class="video" onclick="agregarVideo('https://youtu.be/g7o8F9d4Gk4')">
+Desierto de Sonora
 </div>
 
-<div class="card">
-<h3>Agregar imagen del norte de México</h3>
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1605487900126-6d8d7c92a1d4" onclick="usarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429" onclick="usarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e" onclick="usarImagen(this.src)">
-<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="usarImagen(this.src)">
-</div>
-<div id="imagenSeleccionada"></div>
+<div class="video" onclick="agregarVideo('https://youtu.be/0u6yFQkY5L8')">
+Sierra Madre Occidental
 </div>
 
-<div class="card">
-<h3>Videos del norte de México</h3>
-<button onclick="video1()">Desierto de Sonora</button>
-<button onclick="video2()">Sierra Madre Occidental</button>
-<button onclick="video3()">Caballos del norte</button>
-<div id="video"></div>
-</div>
-
-<div class="card">
-<h3>Generar hilo viral (thread)</h3>
-<button class="orange" onclick="generarHilo()">Crear hilo de 5 tweets</button>
-<textarea id="thread"></textarea>
-</div>
-
-<div class="card">
-<h3>Campaña automática diaria</h3>
-<button onclick="campanaDiaria()">Generar 6 tweets del día</button>
-</div>
-
-<div class="card">
-<h3>Seguir cuenta</h3>
-<div class="follow">
-<a href="https://twitter.com/MexiSonora" target="_blank">👉 Seguir @MexiSonora</a>
-</div>
-</div>
-
+<div class="video" onclick="agregarVideo('https://youtu.be/W3s4YF1r8eM')">
+Caballos del norte
 </div>
 
 <script>
 
-const tweets=[
-"Hay algo especial en el norte de México que no se puede explicar fácilmente. Los amaneceres sobre el desierto de Sonora, el silencio profundo de las montañas y ese cielo enorme que parece no terminar nunca. Si amas estos paisajes sigue @MexiSonora",
-"Dicen que el desierto está vacío, pero el desierto de Sonora está lleno de vida, colores y atardeceres que parecen pintados a mano. Si te gustan estos lugares sigue @MexiSonora",
-"El norte de México tiene algo único: carácter. Entre la Sierra Madre Occidental, los ranchos y los caminos del desierto se siente una libertad difícil de encontrar en otros lugares. Sigue @MexiSonora",
-"Pocas cosas impresionan tanto como un atardecer en el desierto de Sonora cuando el cielo se vuelve rojo, naranja y dorado al mismo tiempo. Más historias del norte en @MexiSonora"
-]
-
-function random(arr){
-return arr[Math.floor(Math.random()*arr.length)]
-}
+let media=""
 
 function generarTweet(){
-let t=random(tweets)
-document.getElementById("tweet").value=t
+
+const frases=[
+"El norte de México no se explica… se vive.",
+"Donde el desierto enseña carácter.",
+"El espíritu del norte es libertad.",
+"Así se ve la grandeza del norte mexicano.",
+"Orgullo del desierto y de la sierra."
+]
+
+let f=frases[Math.floor(Math.random()*frases.length)]
+
+document.getElementById("tweet").value=f+" #Sonora #NorteDeMexico @MexiSonora"
+
 }
 
-function publicarTweet(){
+function agregarImagen(src){
+
+media=src
+
+document.getElementById("tweet").value += " "+src
+
+}
+
+function agregarVideo(url){
+
+media=url
+
+document.getElementById("tweet").value += " "+url
+
+}
+
+function publicar(){
+
 let texto=document.getElementById("tweet").value
+
 let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(texto)
-window.open(url,"_blank")
-}
 
-function usarImagen(src){
-let box=document.getElementById("imagenSeleccionada")
-box.innerHTML="<p>Imagen seleccionada (descárgala y súbela al tweet):</p><img src='"+src+"'>"
-}
+window.open(url)
 
-function video1(){
-mostrarVideo("https://www.youtube.com/embed/Scxs7L0vhZ4")
-}
-
-function video2(){
-mostrarVideo("https://www.youtube.com/embed/aqz-KE-bpKQ")
-}
-
-function video3(){
-mostrarVideo("https://www.youtube.com/embed/6kEX2o1n9l0")
-}
-
-function mostrarVideo(url){
-document.getElementById("video").innerHTML="<iframe src='"+url+"'></iframe>"
-}
-
-function generarHilo(){
-let hilo="1/ El norte de México guarda algunos de los paisajes más impresionantes del continente.\n\n"
-
-hilo+="2/ El desierto de Sonora tiene una biodiversidad sorprendente con cientos de especies adaptadas a un clima extremo.\n\n"
-
-hilo+="3/ La Sierra Madre Occidental atraviesa gran parte del norte del país y crea paisajes espectaculares de montañas y cañones.\n\n"
-
-hilo+="4/ Los ranchos y la cultura vaquera siguen siendo parte fundamental de la identidad del norte.\n\n"
-
-hilo+="5/ Si amas estas historias del norte de México sigue @MexiSonora"
-
-document.getElementById("thread").value=hilo
-}
-
-function campanaDiaria(){
-let plan="Tweets para hoy:\n\n"
-plan+="7:00 inspiración del norte\n"
-plan+="10:00 paisaje del desierto\n"
-plan+="13:00 dato curioso\n"
-plan+="17:00 pregunta comunidad\n"
-plan+="20:00 video del norte\n"
-plan+="22:00 mensaje emocional"
-
-alert(plan)
 }
 
 </script>
