@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>MexiSonora Growth Engine 5.0</title>
+<title>MexiSonora Growth Engine 7.0</title>
 
 <style>
 
@@ -10,8 +10,8 @@ body{
 background:#0f172a;
 font-family:Arial;
 color:white;
-padding:20px;
 text-align:center;
+padding:20px;
 }
 
 h1{
@@ -21,16 +21,16 @@ color:#38bdf8;
 .panel{
 background:#1e293b;
 padding:20px;
-border-radius:12px;
 margin:15px auto;
-max-width:800px;
+border-radius:12px;
+max-width:950px;
 }
 
 textarea{
 width:95%;
 height:180px;
-padding:10px;
 border-radius:10px;
+padding:10px;
 font-size:16px;
 }
 
@@ -41,7 +41,6 @@ padding:12px 18px;
 margin:6px;
 border-radius:8px;
 cursor:pointer;
-font-size:15px;
 }
 
 button:hover{
@@ -50,16 +49,15 @@ background:#16a34a;
 
 video,img{
 width:90%;
-border-radius:10px;
 margin-top:10px;
+border-radius:10px;
 }
 
 #contador{
 color:#94a3b8;
-margin-top:6px;
 }
 
-.hilo{
+.idea{
 background:#0f172a;
 padding:10px;
 margin:6px;
@@ -68,17 +66,18 @@ text-align:left;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>MexiSonora Growth Engine 5.0</h1>
+<h1>MexiSonora Growth Engine 7.0</h1>
 
 <div class="panel">
 
 <h2>Editor de Tweet</h2>
 
-<textarea id="tweet" oninput="contar()"></textarea>
+<textarea id="tweet" oninput="contador()"></textarea>
 
 <div id="contador">0 / 280</div>
 
@@ -86,46 +85,74 @@ text-align:left;
 
 <button onclick="tweetHistoria()">Historia Norteña</button>
 <button onclick="tweetPaisaje()">Paisaje Sonorense</button>
-<button onclick="tweetMotivacion()">Motivación</button>
+<button onclick="tweetMotivacion()">Motivación Norteña</button>
 
 <br>
 
 <button onclick="publicar()">Publicar en X</button>
+<button onclick="guardar()">Guardar Tweet</button>
 
 </div>
 
 <div class="panel">
 
-<h2>Insertar Video o Foto</h2>
+<h2>Subir Foto o Video</h2>
 
 <input type="file" id="mediaUpload" accept="image/*,video/*">
 
 <br>
 
 <video id="videoPreview" controls style="display:none"></video>
-<img id="imgPreview" style="display:none"/>
+<img id="imgPreview" style="display:none">
 
-<button onclick="insertarMedia()">Insertar enlace al tweet</button>
+<button onclick="insertarMedia()">Insertar referencia</button>
 
 </div>
 
 <div class="panel">
 
-<h2>Generador de Hilo Viral</h2>
+<h2>Agregar Video Viral</h2>
 
-<button onclick="generarHilo()">Crear hilo de 5 tweets</button>
+<input type="text" id="videoLink" placeholder="Pegar link de YouTube">
 
-<div id="hiloContainer"></div>
+<button onclick="insertarVideo()">Insertar en tweet</button>
+
+</div>
+
+<div class="panel">
+
+<h2>Generador de Hashtags</h2>
+
+<button onclick="hashtags()">Generar hashtags</button>
+
+<div id="hashtags"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>Ideas Virales</h2>
+
+<button onclick="ideas()">Generar ideas</button>
+
+<div id="ideas"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>Tweets Guardados</h2>
+
+<div id="guardados"></div>
 
 </div>
 
 <script>
 
-let mediaLink=""
-
-function contar(){
+function contador(){
 
 let t=document.getElementById("tweet").value.length
+
 document.getElementById("contador").innerText=t+" / 280"
 
 }
@@ -134,30 +161,21 @@ function tweetHistoria(){
 
 let textos=[
 
-`El desierto de Sonora parece silencioso.
+`El desierto de Sonora es uno de los lugares más impresionantes del norte de México.
 
-Pero si observas con atención descubrirás algo poderoso.
+Horizontes abiertos, silencio absoluto y una sensación de libertad que no existe en ningún otro lugar.`,
 
-El viento moviendo la arena, el sol cayendo sobre la sierra y un horizonte que parece infinito.
+`Hay paisajes que cambian tu forma de ver el mundo.
 
-Aquí uno entiende por qué el norte de México tiene carácter.`,
+El desierto de Sonora es uno de ellos.
 
-`En el norte de México los paisajes no solo se observan.
-
-Se sienten.
-
-La inmensidad del desierto, la fuerza de la sierra y la historia que vive en cada camino.
-
-Sonora no se visita.
-
-Se experimenta.`
+Un lugar donde el horizonte parece infinito.`
 
 ]
 
-let t=textos[Math.floor(Math.random()*textos.length)]
+document.getElementById("tweet").value=textos[Math.floor(Math.random()*textos.length)]
 
-document.getElementById("tweet").value=t
-contar()
+contador()
 
 }
 
@@ -167,24 +185,19 @@ let textos=[
 
 `Atardecer en Sonora.
 
-El cielo se pinta de naranja mientras la sierra se oscurece lentamente.
-
-El silencio del desierto solo se rompe con el viento.
+La sierra se oscurece mientras el cielo se llena de colores intensos.
 
 Momentos así recuerdan por qué el norte de México es único.`,
 
-`Hay paisajes que parecen infinitos.
+`El norte de México guarda paisajes increíbles.
 
-El desierto de Sonora es uno de ellos.
-
-Un lugar donde el cielo se encuentra con la tierra y el tiempo parece detenerse.`
+Desiertos, sierras y horizontes que parecen no terminar.`
 
 ]
 
-let t=textos[Math.floor(Math.random()*textos.length)]
+document.getElementById("tweet").value=textos[Math.floor(Math.random()*textos.length)]
 
-document.getElementById("tweet").value=t
-contar()
+contador()
 
 }
 
@@ -194,61 +207,17 @@ let textos=[
 
 `En el norte aprendimos algo importante.
 
-El carácter se forma enfrentando el desierto.
+La disciplina y el carácter terminan abriendo cualquier camino.`,
 
-Cada obstáculo fortalece.
+`El desierto enseña paciencia.
 
-Cada día suma.
-
-Y cada paso nos acerca al objetivo.`,
-
-`Disciplina.
-
-Carácter.
-
-Resistencia.
-
-Tres palabras que describen a quienes crecen en el norte de México.`
+Y la paciencia crea fuerza.`
 
 ]
 
-let t=textos[Math.floor(Math.random()*textos.length)]
+document.getElementById("tweet").value=textos[Math.floor(Math.random()*textos.length)]
 
-document.getElementById("tweet").value=t
-contar()
-
-}
-
-document.getElementById("mediaUpload").onchange=function(e){
-
-let file=e.target.files[0]
-
-let url=URL.createObjectURL(file)
-
-mediaLink=url
-
-if(file.type.startsWith("video")){
-
-document.getElementById("videoPreview").style.display="block"
-document.getElementById("videoPreview").src=url
-
-document.getElementById("imgPreview").style.display="none"
-
-}else{
-
-document.getElementById("imgPreview").style.display="block"
-document.getElementById("imgPreview").src=url
-
-document.getElementById("videoPreview").style.display="none"
-
-}
-
-}
-
-function insertarMedia(){
-
-document.getElementById("tweet").value += " [video/foto adjunta]"
-contar()
+contador()
 
 }
 
@@ -256,37 +225,73 @@ function publicar(){
 
 let texto=document.getElementById("tweet").value
 
-let url="https://twitter.com/intent/tweet?text="+encodeURIComponent(texto)
-
-window.open(url)
+window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(texto))
 
 }
 
-function generarHilo(){
+function guardar(){
 
-let cont=document.getElementById("hiloContainer")
+let t=document.getElementById("tweet").value
+
+let div=document.createElement("div")
+
+div.className="idea"
+
+div.innerText=t
+
+document.getElementById("guardados").appendChild(div)
+
+}
+
+function insertarMedia(){
+
+document.getElementById("tweet").value+=" [foto/video]"
+
+contador()
+
+}
+
+function insertarVideo(){
+
+let link=document.getElementById("videoLink").value
+
+document.getElementById("tweet").value+=" "+link
+
+contador()
+
+}
+
+function hashtags(){
+
+let tags=[
+"#Sonora","#NorteDeMexico","#PaisajesDeMexico",
+"#Desierto","#OrgulloSonorense","#TurismoMexico"
+]
+
+document.getElementById("hashtags").innerText=tags.join(" ")
+
+}
+
+function ideas(){
+
+let ideas=[
+"Los paisajes más impresionantes del desierto de Sonora",
+"Historias del norte de México que pocos conocen",
+"Curiosidades del desierto sonorense",
+"Atardeceres únicos del norte mexicano"
+]
+
+let cont=document.getElementById("ideas")
 
 cont.innerHTML=""
 
-let hilo=[
-
-"1️⃣ El desierto de Sonora es uno de los lugares más impresionantes del norte de México.",
-
-"2️⃣ Su paisaje parece infinito, con horizontes abiertos y cielos enormes.",
-
-"3️⃣ Durante el atardecer los colores cambian cada minuto.",
-
-"4️⃣ La sierra y el desierto crean un contraste espectacular.",
-
-"5️⃣ Lugares así recuerdan por qué el norte tiene tanto carácter."
-
-]
-
-hilo.forEach(t=>{
+ideas.forEach(i=>{
 
 let div=document.createElement("div")
-div.className="hilo"
-div.innerText=t
+
+div.className="idea"
+
+div.innerText=i
 
 cont.appendChild(div)
 
